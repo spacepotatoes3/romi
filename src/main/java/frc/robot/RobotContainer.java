@@ -10,8 +10,6 @@ import edu.wpi.first.wpilibj.XboxController;
 import frc.robot.commands.ArcadeDrive;
 import frc.robot.commands.AutonomousDistance;
 import frc.robot.commands.AutonomousTime;
-import frc.robot.commands.VisionAutonomous;
-import frc.robot.commands.AutonomousRoutine;
 import frc.robot.subsystems.Drivetrain;
 import edu.wpi.first.wpilibj.romi.OnBoardIO;
 import edu.wpi.first.wpilibj.romi.OnBoardIO.ChannelMode;
@@ -29,7 +27,7 @@ import edu.wpi.first.wpilibj2.command.button.Trigger;
  */
 public class RobotContainer {
   // The robot's subsystems and commands are defined here...
-  public final Drivetrain m_drivetrain = new Drivetrain();
+  private final Drivetrain m_drivetrain = new Drivetrain();
   private final OnBoardIO m_onboardIO = new OnBoardIO(ChannelMode.INPUT, ChannelMode.INPUT);
 
   // Assumes a gamepad plugged into channel 0
@@ -75,11 +73,7 @@ public class RobotContainer {
     // Setup SmartDashboard options
     m_chooser.setDefaultOption("Auto Routine Distance", new AutonomousDistance(m_drivetrain));
     m_chooser.addOption("Auto Routine Time", new AutonomousTime(m_drivetrain));
-    m_chooser.addOption("Auto Routine Custom", new AutonomousRoutine(m_drivetrain));
-    m_chooser.addOption("Auto Routine Vision", new VisionAutonomous(m_drivetrain));
     SmartDashboard.putData(m_chooser);
-
-    VisionAutonomous.printMessage();
   }
 
   /**

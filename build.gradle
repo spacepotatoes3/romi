@@ -38,7 +38,7 @@ test {
 
 // Simulation configuration (e.g. environment variables).
 wpi.sim.addGui().defaultEnabled = true
-wpi.sim.addDriverstation().defaultEnabled = true;
+wpi.sim.addDriverstation()
 
 //Sets the websocket client remote host.
 wpi.sim.envVar("HALSIMWS_HOST", "10.0.0.2")

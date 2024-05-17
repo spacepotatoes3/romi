@@ -1,29 +1,8 @@
 {
-  "HALProvider": {
-    "Other Devices": {
-      "BuiltInAccel": {
-        "header": {
-          "open": true
-        }
-      },
-      "RomiGyro": {
-        "header": {
-          "open": true
-        }
-      }
-    }
-  },
   "NTProvider": {
     "types": {
       "/FMSInfo": "FMSInfo",
       "/SmartDashboard/SendableChooser[0]": "String Chooser"
-    }
-  },
-  "NetworkTables": {
-    "transitory": {
-      "Vision": {
-        "open": true
-      }
     }
   },
   "NetworkTables Info": {
