@@ -4,15 +4,11 @@
 
 package frc.robot.commands;
 
-import frc.robot.Robot;
 import frc.robot.subsystems.Drivetrain;
 import edu.wpi.first.networktables.NetworkTable;
 import edu.wpi.first.networktables.NetworkTableEntry;
 import edu.wpi.first.networktables.NetworkTableInstance;
-import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
-
-import java.util.logging.Logger;
 
 public class AutonomousVision extends SequentialCommandGroup {
   /**
@@ -29,33 +25,7 @@ public class AutonomousVision extends SequentialCommandGroup {
   boolean tagDetected = tagEntry.getBoolean(false);
 
   public AutonomousVision(Drivetrain drivetrain) {
-        System.out.println("AutonomousVision running");
         addCommands(
-        new DriveDistance(-0.4, 10, drivetrain),
-        new DriveDistance(0.4, 10, drivetrain));
+        new TurnDegrees(-0.5, 180, drivetrain));
 }
-
-
-  public void run(Drivetrain drivetrain) {
-       
-    printMessage();
-   NetworkTableEntry activeEntry = table.getEntry("Active");
-    activeEntry.setBoolean(true);
-
-          NetworkTableEntry visionEntry = table.getEntry("Running Vision");
-          visionEntry.setBoolean(true);
-  }
-  public static void printMessage() {
-    Logger logger = Logger.getLogger("MyLogger");
-    logger.info("VisionAutonomous is running");
-  }
-
-  public static String commandToString(Command command) {
-    if (command != null) {
-    return command.getClass().getName();
-    } else {
-        return "";
-    }
-
-  }
 }

@@ -9,6 +9,7 @@ import edu.wpi.first.networktables.NetworkTableInstance;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
+import frc.robot.commands.AutonomousSearch;
 import frc.robot.commands.AutonomousTime;
 import frc.robot.commands.AutonomousVision;
 
@@ -73,10 +74,19 @@ public class Robot extends TimedRobot {
   @Override
   public void autonomousPeriodic() {
     long tagID = table.getEntry("tagID").getInteger(0);
+    AutonomousVision av = new AutonomousVision(RobotContainer.m_drivetrain);
 
         if (tagID != 0 && running == false) {
+      m_autonomousCommand.cancel();
+      m_autonomousCommand = av;
       m_autonomousCommand.schedule();
       running = true;
+    } else {
+      if (!m_autonomousCommand.isScheduled()) {
+      m_autonomousCommand = new AutonomousSearch(m_robotContainer.m_drivetrain);
+      m_autonomousCommand.schedule();
+      running = false;
+      }
     }
   }
 
