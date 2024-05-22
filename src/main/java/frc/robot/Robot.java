@@ -69,23 +69,25 @@ public class Robot extends TimedRobot {
     m_autonomousCommand = m_robotContainer.getAutonomousCommand();
   }
 
-  public static boolean running = false;
   /** This function is called periodically during autonomous. */
   @Override
   public void autonomousPeriodic() {
+
+    // Stores the currently detected tag's ID (0 as a default if nothing is detected)
+    // Creates a new autonomous vision routine to run if a tag is detected
     long tagID = table.getEntry("tagID").getInteger(0);
     AutonomousVision av = new AutonomousVision(RobotContainer.m_drivetrain);
 
-        if (tagID != 0 && running == false) {
+    // If a tag is detected, stop whatever is currently running and run the autonomous vision routine
+        if (tagID != 0) {
       m_autonomousCommand.cancel();
       m_autonomousCommand = av;
       m_autonomousCommand.schedule();
-      running = true;
     } else {
+      // If no tag is detected, run the search routine
       if (!m_autonomousCommand.isScheduled()) {
-      m_autonomousCommand = new AutonomousSearch(m_robotContainer.m_drivetrain);
+      m_autonomousCommand = new AutonomousSearch(RobotContainer.m_drivetrain);
       m_autonomousCommand.schedule();
-      running = false;
       }
     }
   }

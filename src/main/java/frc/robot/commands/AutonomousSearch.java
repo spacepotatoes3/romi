@@ -9,9 +9,8 @@ import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 
 public class AutonomousSearch extends SequentialCommandGroup {
   /**
-   * Creates a new Autonomous Drive based on distance. This will drive out for a specified distance,
-   * turn around and drive back.
-   *
+   * Creates a new autonomous routine to run while searching for a target
+   * Turns 360 degrees to search for the target
    * @param drivetrain The drivetrain subsystem on which this command will run
    */
   public AutonomousSearch(Drivetrain drivetrain) {
