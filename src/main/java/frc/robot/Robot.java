@@ -94,11 +94,7 @@ public class Robot extends TimedRobot {
       }
     }
   }
-
-  public void adjustPosition() {
-
-  }
-
+  
   @Override
   public void teleopInit() {
     // This makes sure that the autonomous stops running which will
