@@ -72,16 +72,19 @@ public class Robot extends TimedRobot {
   /** This function is called periodically during autonomous. */
   @Override
   public void autonomousPeriodic() {
+    scheduleVision();
+  }
+
+  /** Configures the autonomous routine according Shuffleboard input */
+  public void scheduleVision() {
 
     // Stores the currently detected tag's ID (0 as a default if nothing is detected)
-    // Creates a new autonomous vision routine to run if a tag is detected
     long tagID = table.getEntry("tagID").getInteger(0);
-    AutonomousVision av = new AutonomousVision(RobotContainer.m_drivetrain);
 
     // If a tag is detected, stop whatever is currently running and run the autonomous vision routine
-        if (tagID != 0) {
+    if (tagID != 0) {
       m_autonomousCommand.cancel();
-      m_autonomousCommand = av;
+      m_autonomousCommand = new AutonomousVision(RobotContainer.m_drivetrain);
       m_autonomousCommand.schedule();
     } else {
       // If no tag is detected, run the search routine
