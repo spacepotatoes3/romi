@@ -14,7 +14,7 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 public class Drivetrain extends SubsystemBase {
   private static final double kCountsPerRevolution = 1440.0;
-  private static final double kWheelDiameterInch = 2.75591; // 70 mm
+  private static final double kWheelDiameterCm = 7; // 70 mm
 
   // The Romi has the left and right motors set to
   // PWM channels 0 and 1 respectively
@@ -46,9 +46,9 @@ public class Drivetrain extends SubsystemBase {
     // gearbox is constructed, you might have to invert the left side instead.
     m_rightMotor.setInverted(true);
 
-    // Use inches as unit for encoder distances
-    m_leftEncoder.setDistancePerPulse((Math.PI * kWheelDiameterInch) / kCountsPerRevolution);
-    m_rightEncoder.setDistancePerPulse((Math.PI * kWheelDiameterInch) / kCountsPerRevolution);
+    // Use centimeters as unit for encoder distances
+    m_leftEncoder.setDistancePerPulse((Math.PI * kWheelDiameterCm) / kCountsPerRevolution);
+    m_rightEncoder.setDistancePerPulse((Math.PI * kWheelDiameterCm) / kCountsPerRevolution);
     resetEncoders();
   }
 
@@ -69,16 +69,16 @@ public class Drivetrain extends SubsystemBase {
     return m_rightEncoder.get();
   }
 
-  public double getLeftDistanceInch() {
-    return m_leftEncoder.getDistance();
+  public double getLeftDistanceCm() {
+    return m_leftEncoder.getDistance() * 2.54;
   }
 
-  public double getRightDistanceInch() {
-    return m_rightEncoder.getDistance();
+  public double getRightDistanceCm() {
+    return m_rightEncoder.getDistance() * 2.54;
   }
 
-  public double getAverageDistanceInch() {
-    return (getLeftDistanceInch() + getRightDistanceInch()) / 2.0;
+  public double getAverageDistanceCm() {
+    return (getLeftDistanceCm() + getRightDistanceCm()) / 2.0;
   }
 
   /**
