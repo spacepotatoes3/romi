@@ -20,8 +20,8 @@ public class DriveDistance extends Command {
    * @param cm The number of centimeters the robot will drive
    * @param drive The drivetrain subsystem on which this command will run
    */
-  public DriveDistance(double speed, double cm, Drivetrain drive) {
-    m_distance = cm;
+  public DriveDistance(double speed, double m, Drivetrain drive) {
+    m_distance = m;
     m_speed = speed;
     m_drive = drive;
     addRequirements(drive);
@@ -50,6 +50,6 @@ public class DriveDistance extends Command {
   @Override
   public boolean isFinished() {
     // Compare distance travelled from start to desired distance
-    return Math.abs((m_drive.getAverageDistanceCm())) >= m_distance;
+    return Math.abs((m_drive.getAverageDistanceMeter())) >= m_distance;
   }
 }

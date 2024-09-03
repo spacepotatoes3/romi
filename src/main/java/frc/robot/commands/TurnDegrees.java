@@ -62,8 +62,8 @@ public class TurnDegrees extends Command {
   }
 
   private double getAverageTurningDistance() {
-    double leftDistance = Math.abs(m_drive.getLeftDistanceCm());
-    double rightDistance = Math.abs(m_drive.getRightDistanceCm());
+    double leftDistance = Math.abs(m_drive.getLeftDistanceMeter());
+    double rightDistance = Math.abs(m_drive.getRightDistanceMeter());
     return (leftDistance + rightDistance) / 2.0;
   }
 }
