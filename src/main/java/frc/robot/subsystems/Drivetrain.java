@@ -52,19 +52,8 @@ public class Drivetrain extends SubsystemBase {
 
   private final Field2d m_fieldApproximation = new Field2d(); //may need to initialize pose
 
-  // Set up pose estimator
-  /* Here we use DifferentialDrivePoseEstimator so that we can fuse odometry readings. The
-  numbers used  below are robot specific, and should be tuned. */
-  private final DifferentialDrivePoseEstimator m_poseEstimator =
-      new DifferentialDrivePoseEstimator(
-          m_kinematics,
-          new Rotation2d(m_gyro.getAngle()),
-          m_leftEncoder.getDistance(),
-          m_rightEncoder.getDistance(),
-          new Pose2d(),
-          VecBuilder.fill(0.05, 0.05, Units.degreesToRadians(5)),
-          VecBuilder.fill(0.5, 0.5, Units.degreesToRadians(30)));
-
+    // declare here for methods access, init in constructor
+    DifferentialDrivePoseEstimator m_poseEstimator;
 
   /** Creates a new Drivetrain. */
   public Drivetrain() {
@@ -80,8 +69,19 @@ public class Drivetrain extends SubsystemBase {
     // Use meters as unit for encoder distances
     m_leftEncoder.setDistancePerPulse((Math.PI * kWheelDiameterMeter) / kCountsPerRevolution);
     m_rightEncoder.setDistancePerPulse((Math.PI * kWheelDiameterMeter) / kCountsPerRevolution);
-    resetEncoders();
     m_gyro.reset();
+    
+    // Set up pose estimator
+    /* Here we use DifferentialDrivePoseEstimator so that we can fuse odometry readings. The
+    numbers used  below are robot specific, and should be tuned. */
+    m_poseEstimator = new DifferentialDrivePoseEstimator(
+          m_kinematics,
+          new Rotation2d(m_gyro.getAngle()),
+          (m_leftEncoder.getDistance()),
+          (m_rightEncoder.getDistance()),
+          new Pose2d(),
+          VecBuilder.fill(0.05, 0.05, Units.degreesToRadians(5)),
+          VecBuilder.fill(0.5, 0.5, Units.degreesToRadians(30)));
 
     SmartDashboard.putData("FieldEstimation", m_fieldApproximation);
 
@@ -178,6 +178,7 @@ public class Drivetrain extends SubsystemBase {
 
   /** Updates the field-relative position. */
   public void updateOdometry() {
+    
     m_poseEstimator.update(
         new Rotation2d(m_gyro.getAngle()), m_leftEncoder.getDistance(), m_rightEncoder.getDistance());
 

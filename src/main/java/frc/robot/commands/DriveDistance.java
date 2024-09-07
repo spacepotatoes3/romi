@@ -31,7 +31,6 @@ public class DriveDistance extends Command {
   @Override
   public void initialize() {
     m_drive.arcadeDrive(0, 0);
-    m_drive.resetEncoders();
   }
 
   // Called every time the scheduler runs while the command is scheduled.
